@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>💰 Billing</h2>
+
+<div class="card">
+    <h3>Create New Bill</h3>
+    <form method="POST">
+        <label>Select Patient:</label>
+        <select name="patient_id" required>
+            <option value="">-- Select Patient --</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">
+                    {{ patient.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Amount (₦):</label>
+        <input type="number" name="amount"
+               placeholder="e.g. 5000"
+               min="0" required>
+
+        <label>Description:</label>
+        <input type="text" name="description"
+               placeholder="e.g. Consultation fee"
+               required>
+
+        <button class="btn" type="submit"
+                style="width:100%; padding:12px;">
+            💰 Create Bill
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Bills</h3>
+    {% if bills %}
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+        {% for bill in bills %}
+        <tr>
+            <td>{{ bill.patient.name }}</td>
+            <td>₦{{ bill.amount }}</td>
+            <td>{{ bill.description }}</td>
+            <td>
+                {% if bill.status == 'Paid' %}
+                    <span class="badge-paid">
+                        ✅ Paid
+                    </span>
+                {% else %}
+                    <span class="badge-unpaid">
+                        ❌ Unpaid
+                    </span>
+                {% endif %}
+            </td>
+            <td>
+                {{ bill.date.strftime('%Y-%m-%d') }}
+            </td>
+            <td>
+                {% if bill.status == 'Unpaid' %}
+                    <a href="/pay-bill/{{ bill.id }}"
+                       class="btn btn-small"
+                       style="background:green;"
+                       onclick="return confirm(
+                           'Mark as paid?');">
+                        ✅ Mark Paid
+                    </a>
+                {% else %}
+                    <span style="color:green;">
+                        ✅ Completed
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No bills yet!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
