@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>💊 Prescriptions</h2>
+
+<div class="card">
+    <h3>Add New Prescription</h3>
+    <form method="POST">
+        <label>Select Patient:</label>
+        <select name="patient_id" required>
+            <option value="">-- Select Patient --</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">
+                    {{ patient.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Select Doctor:</label>
+        <select name="doctor_id" required>
+            <option value="">-- Select Doctor --</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">
+                    {{ doctor.name }} -
+                    {{ doctor.specialization }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Medicine:</label>
+        <input type="text" name="medicine"
+               placeholder="e.g. Paracetamol 500mg"
+               required>
+
+        <label>Dosage:</label>
+        <input type="text" name="dosage"
+               placeholder="e.g. 2 tablets 3 times daily"
+               required>
+
+        <label>Notes:</label>
+        <textarea name="notes" rows="3"
+                  placeholder="Additional instructions...">
+        </textarea>
+
+        <button class="btn" type="submit"
+                style="width:100%; padding:12px;">
+            💊 Add Prescription
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Prescriptions</h3>
+    {% if prescriptions %}
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Medicine</th>
+            <th>Dosage</th>
+            <th>Notes</th>
+            <th>Date</th>
+        </tr>
+        {% for prescription in prescriptions %}
+        <tr>
+            <td>{{ prescription.patient.name }}</td>
+            <td>{{ prescription.doctor.name }}</td>
+            <td>{{ prescription.medicine }}</td>
+            <td>{{ prescription.dosage }}</td>
+            <td>{{ prescription.notes }}</td>
+            <td>
+                {{ prescription.date.strftime('%Y-%m-%d') }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No prescriptions yet!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
