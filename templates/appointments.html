@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📅 Appointments</h2>
+
+<div class="card">
+    <h3>Book New Appointment</h3>
+    <form method="POST">
+        <label>Select Patient:</label>
+        <select name="patient_id" required>
+            <option value="">-- Select Patient --</option>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">
+                    {{ patient.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Select Doctor:</label>
+        <select name="doctor_id" required>
+            <option value="">-- Select Doctor --</option>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">
+                    {{ doctor.name }} -
+                    {{ doctor.specialization }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Date:</label>
+        <input type="date" name="date" required>
+
+        <label>Time:</label>
+        <input type="time" name="time" required>
+
+        <label>Notes:</label>
+        <textarea name="notes" rows="3"
+                  placeholder="Any additional notes...">
+        </textarea>
+
+        <button class="btn" type="submit"
+                style="width:100%; padding:12px;">
+            📅 Book Appointment
+        </button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>All Appointments</h3>
+    {% if appointments %}
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.patient.name }}</td>
+            <td>{{ appointment.doctor.name }}</td>
+            <td>{{ appointment.date }}</td>
+            <td>{{ appointment.time }}</td>
+            <td>
+                {% if appointment.status == 'Pending' %}
+                    <span class="badge-pending">
+                        Pending
+                    </span>
+                {% elif appointment.status == 'Completed' %}
+                    <span class="badge-completed">
+                        Completed
+                    </span>
+                {% else %}
+                    <span class="badge-cancelled">
+                        Cancelled
+                    </span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/update-appointment/{{ appointment.id }}/Completed"
+                   class="btn btn-small"
+                   style="background:green;">
+                   ✅
+                </a>
+                <a href="/update-appointment/{{ appointment.id }}/Cancelled"
+                   class="btn btn-red btn-small">
+                   ❌
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No appointments yet!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
