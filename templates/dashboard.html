@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📊 Dashboard</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <p>Total Patients</p>
+        <h1>{{ total_patients }}</h1>
+        <a href="/patients" style="color:white;">
+            View All →
+        </a>
+    </div>
+    <div class="stat-card">
+        <p>Total Doctors</p>
+        <h1>{{ total_doctors }}</h1>
+        <a href="/doctors" style="color:white;">
+            View All →
+        </a>
+    </div>
+    <div class="stat-card">
+        <p>Appointments</p>
+        <h1>{{ total_appointments }}</h1>
+        <a href="/appointments" style="color:white;">
+            View All →
+        </a>
+    </div>
+    <div class="stat-card">
+        <p>Unpaid Bills</p>
+        <h1>{{ total_bills }}</h1>
+        <a href="/billing" style="color:white;">
+            View All →
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Quick Actions</h3>
+    <a href="/add-patient" class="btn"
+       style="margin-right:10px;">
+        ➕ Add Patient
+    </a>
+    <a href="/add-doctor" class="btn btn-blue"
+       style="margin-right:10px;">
+        👨‍⚕️ Add Doctor
+    </a>
+    <a href="/appointments" class="btn btn-orange"
+       style="margin-right:10px;">
+        📅 Appointments
+    </a>
+    <a href="/billing" class="btn btn-red">
+        💰 Billing
+    </a>
+</div>
+
+<div class="card">
+    <h3>Recently Registered Patients</h3>
+    {% if recent_patients %}
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Blood Group</th>
+        </tr>
+        {% for patient in recent_patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.phone }}</td>
+            <td>{{ patient.blood_group }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No patients registered yet!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
