@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card" style="max-width:500px; margin:0 auto;">
+    <h2>👨‍⚕️ Add New Doctor</h2>
+
+    <form method="POST">
+        <label>Full Name:</label>
+        <input type="text" name="name"
+               placeholder="e.g. Dr. Ahmed Musa"
+               required>
+
+        <label>Specialization:</label>
+        <select name="specialization" required>
+            <option value="">-- Select Specialization --</option>
+            <option value="General Practitioner">
+                General Practitioner</option>
+            <option value="Pediatrician">
+                Pediatrician</option>
+            <option value="Cardiologist">
+                Cardiologist</option>
+            <option value="Dermatologist">
+                Dermatologist</option>
+            <option value="Neurologist">
+                Neurologist</option>
+            <option value="Orthopedic">
+                Orthopedic</option>
+            <option value="Gynecologist">
+                Gynecologist</option>
+            <option value="Ophthalmologist">
+                Ophthalmologist</option>
+            <option value="Dentist">
+                Dentist</option>
+            <option value="Psychiatrist">
+                Psychiatrist</option>
+        </select>
+
+        <label>Phone Number:</label>
+        <input type="text" name="phone"
+               placeholder="e.g. 08012345678"
+               required>
+
+        <label>Email:</label>
+        <input type="email" name="email"
+               placeholder="e.g. doctor@hospital.com">
+
+        <button class="btn" type="submit"
+                style="width:100%; padding:12px;">
+            ➕ Add Doctor
+        </button>
+    </form>
+
+    <br>
+    <a href="/doctors" class="btn btn-red">
+        ⬅ Back to Doctors
+    </a>
+</div>
+
+{% endblock %}
