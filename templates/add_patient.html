@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card" style="max-width:500px; margin:0 auto;">
+    <h2>➕ Add New Patient</h2>
+
+    <form method="POST">
+        <label>Full Name:</label>
+        <input type="text" name="name"
+               placeholder="e.g. Ali Abatcha"
+               required>
+
+        <label>Age:</label>
+        <input type="number" name="age"
+               placeholder="e.g. 35"
+               min="1" max="120" required>
+
+        <label>Gender:</label>
+        <select name="gender" required>
+            <option value="">-- Select Gender --</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Phone Number:</label>
+        <input type="text" name="phone"
+               placeholder="e.g. 08012345678"
+               required>
+
+        <label>Address:</label>
+        <input type="text" name="address"
+               placeholder="e.g. No 1 Borno Way">
+
+        <label>Blood Group:</label>
+        <select name="blood_group" required>
+            <option value="">-- Select Blood Group --</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select>
+
+        <button class="btn" type="submit"
+                style="width:100%; padding:12px;">
+            ➕ Add Patient
+        </button>
+    </form>
+
+    <br>
+    <a href="/patients" class="btn btn-red">
+        ⬅ Back to Patients
+    </a>
+</div>
+
+{% endblock %}
