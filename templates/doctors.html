@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>👨‍⚕️ Doctors</h2>
+
+<div class="card">
+    <a href="/add-doctor" class="btn"
+       style="margin-bottom:15px;
+              display:inline-block;">
+        ➕ Add New Doctor
+    </a>
+
+    {% if doctors %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        {% for doctor in doctors %}
+        <tr>
+            <td>{{ doctor.id }}</td>
+            <td>{{ doctor.name }}</td>
+            <td>{{ doctor.specialization }}</td>
+            <td>{{ doctor.phone }}</td>
+            <td>{{ doctor.email }}</td>
+            <td>
+                <a href="/delete-doctor/{{ doctor.id }}"
+                   class="btn btn-red btn-small"
+                   onclick="return confirm('Are you sure?');">
+                   🗑 Delete
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>No doctors added yet!</p>
+    {% endif %}
+</div>
+
+{% endblock %}
